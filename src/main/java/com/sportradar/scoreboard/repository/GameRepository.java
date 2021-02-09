@@ -38,4 +38,8 @@ public class GameRepository {
     public Collection<Game> getAll() {
         return scoreBoard.values();
     }
+
+    public void cleanAll() {
+        scoreBoard.clear();
+    }
 }

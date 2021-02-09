@@ -39,4 +39,9 @@ public interface ScoreBoardService {
      * @return List of games
      */
     List<Game> get();
+
+    /**
+     * Clean all the scoreboard
+     */
+    void cleanAll();
 }

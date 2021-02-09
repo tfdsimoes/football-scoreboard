@@ -1,17 +1,36 @@
 package com.sportradar.scoreboard.service;
 
+import com.sportradar.scoreboard.entity.Game;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ScoreBoardServiceTest {
+class ScoreBoardServiceTest {
+
+    private static ScoreBoardService scoreBoardService;
+
+    @BeforeAll
+    public static void setup() {
+        scoreBoardService = new ScoreBoardServiceImpl();
+    }
+
+    @AfterEach
+    public void tearDownTest() {
+        scoreBoardService.cleanAll();
+    }
 
     /**
      * Assert the creation of a game with the parameters correct
      */
     @Test
     public void startGameSuccess(){
+        Game game = scoreBoardService.start("a", "b");
 
+        assertEquals("a", game.getHomeTeam(), "Home team is not correct");
+        assertEquals("b", game.getAwayTeam(), "Away team is not correct");
     }
 
     /**

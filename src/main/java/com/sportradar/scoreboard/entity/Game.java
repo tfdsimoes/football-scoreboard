@@ -54,4 +54,8 @@ public class Game {
     public LocalDateTime getStartTime() {
         return startTime;
     }
+
+    public int getTotalGoals() {
+        return homeTeamScore + awayTeamScore;
+    }
 }
