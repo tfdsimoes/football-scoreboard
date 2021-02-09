@@ -31,6 +31,8 @@ class ScoreBoardServiceTest {
 
         assertEquals("a", game.getHomeTeam(), "Home team is not correct");
         assertEquals("b", game.getAwayTeam(), "Away team is not correct");
+        assertEquals(0, game.getHomeTeamScore(), "Home score should be 0");
+        assertEquals(0, game.getAwayTeamScore(), "Away score should be 0");
     }
 
     /**
@@ -41,7 +43,13 @@ class ScoreBoardServiceTest {
         try {
             scoreBoardService.start(null, "b");
         } catch (RuntimeException exception) {
-            assertEquals("Home team can not be null or empty", exception.getMessage(), "Error message should be different");
+            assertEquals("Home team can not be null or empty", exception.getMessage(), "Exception message should be different");
+        }
+
+        try {
+            scoreBoardService.start("a", null);
+        } catch (RuntimeException exception) {
+            assertEquals("Away team can not be null or empty", exception.getMessage(), "Exception message should be different");
         }
 
     }
@@ -52,9 +60,15 @@ class ScoreBoardServiceTest {
     @Test
     public void startGameErrorTeamEmpty() {
         try {
+            scoreBoardService.start("", "b");
+        } catch (RuntimeException exception) {
+            assertEquals("Home team can not be null or empty", exception.getMessage(), "Exception message should be different");
+        }
+
+        try {
             scoreBoardService.start("a", "");
         } catch (RuntimeException exception) {
-            assertEquals("Away team can not be null or empty", exception.getMessage(), "Error message should be different");
+            assertEquals("Away team can not be null or empty", exception.getMessage(), "Exception message should be different");
         }
     }
 
@@ -75,7 +89,7 @@ class ScoreBoardServiceTest {
         try {
             scoreBoardService.end("a");
         } catch (RuntimeException exception) {
-            assertEquals("Id does not exist in the system", exception.getMessage(), "Error message should be different");
+            assertEquals("Id does not exist in the system", exception.getMessage(), "Exception message should be different");
         }
     }
 
@@ -84,7 +98,13 @@ class ScoreBoardServiceTest {
      */
     @Test
     public void updateGameSuccess() {
+        Game game = scoreBoardService.start("a", "b");
+        game = scoreBoardService.update(game.getId(), 1, 1);
 
+        assertEquals("a", game.getHomeTeam(), "Home team is not correct");
+        assertEquals("b", game.getAwayTeam(), "Away team is not correct");
+        assertEquals(1, game.getHomeTeamScore(), "Home score should be 1");
+        assertEquals(1, game.getAwayTeamScore(), "Away score should be 1");
     }
 
     /**
@@ -92,7 +112,11 @@ class ScoreBoardServiceTest {
      */
     @Test
     public void updateGameErrorIdNotFound() {
-
+        try {
+            scoreBoardService.update("a", 1, 1);
+        } catch (RuntimeException exception) {
+            assertEquals("Id game not found in the system", exception.getMessage(), "Exception message should be different");
+        }
     }
 
     /**
@@ -100,7 +124,19 @@ class ScoreBoardServiceTest {
      */
     @Test
     public void updateGameErrorNegativeScore() {
+        Game game = scoreBoardService.start("a", "b");
 
+        try {
+            scoreBoardService.update(game.getId(), -1, 1);
+        } catch (RuntimeException exception) {
+            assertEquals("Score of teams should be zero or positive", exception.getMessage(), "Exception message should be different");
+        }
+
+        try {
+            scoreBoardService.update(game.getId(), 1, -1);
+        } catch (RuntimeException exception) {
+            assertEquals("Score of teams should be zero or positive", exception.getMessage(), "Exception message should be different");
+        }
     }
 
     /**

@@ -56,7 +56,16 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
      */
     @Override
     public Game update(String id, int homeTeamScore, int awayTeamScore) {
+        if (homeTeamScore < 0 && awayTeamScore < 0) {
+            throw new RuntimeException("Score of teams should be zero or positive");
+        }
+
         Game game = gameRepository.get(id);
+
+        if(game == null) {
+            throw new RuntimeException("Id game not found in the system");
+        }
+
         game.setHomeTeamScore(homeTeamScore);
         game.setAwayTeamScore(awayTeamScore);
         gameRepository.update(game);
