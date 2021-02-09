@@ -28,7 +28,9 @@ public class GameRepository {
     }
 
     public void remove(String id) {
-        scoreBoard.remove(id);
+        if(scoreBoard.remove(id) == null) {
+            throw new RuntimeException("Id does not exist in the system");
+        }
     }
 
     public void update(Game game) {

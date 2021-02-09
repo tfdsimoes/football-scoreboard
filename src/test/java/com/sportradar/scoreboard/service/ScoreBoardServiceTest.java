@@ -63,7 +63,8 @@ class ScoreBoardServiceTest {
      */
     @Test
     public void endGameSuccess() {
-
+        Game game = scoreBoardService.start("a", "b");
+        scoreBoardService.end(game.getId());
     }
 
     /**
@@ -71,7 +72,11 @@ class ScoreBoardServiceTest {
      */
     @Test
     public void endGameErrorIdNotFound() {
-
+        try {
+            scoreBoardService.end("a");
+        } catch (RuntimeException exception) {
+            assertEquals("Id does not exist in the system", exception.getMessage(), "Error message should be different");
+        }
     }
 
     /**
