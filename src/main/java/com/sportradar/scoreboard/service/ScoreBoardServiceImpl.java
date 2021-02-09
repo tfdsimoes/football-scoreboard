@@ -1,7 +1,7 @@
 package com.sportradar.scoreboard.service;
 
 import com.sportradar.scoreboard.entity.Game;
-import com.sportradar.scoreboard.entity.GameComparator;
+import com.sportradar.scoreboard.comparator.GameComparator;
 import com.sportradar.scoreboard.repository.GameRepository;
 import org.apache.commons.lang3.StringUtils;
 

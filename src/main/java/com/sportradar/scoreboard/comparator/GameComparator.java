@@ -1,4 +1,6 @@
-package com.sportradar.scoreboard.entity;
+package com.sportradar.scoreboard.comparator;
+
+import com.sportradar.scoreboard.entity.Game;
 
 import java.util.Comparator;
 
