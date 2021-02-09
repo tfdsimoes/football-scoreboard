@@ -2,6 +2,7 @@ package com.sportradar.scoreboard.service;
 
 import com.sportradar.scoreboard.entity.Game;
 import com.sportradar.scoreboard.repository.GameRepository;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Comparator;
 import java.util.List;
@@ -21,6 +22,14 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
      */
     @Override
     public Game start(String homeTeam, String awayTeam) {
+        if(StringUtils.isEmpty(homeTeam)) {
+            throw new RuntimeException("Home team can not be null or empty");
+        }
+
+        if(StringUtils.isEmpty(awayTeam)) {
+            throw new RuntimeException("Away team can not be null or empty");
+        }
+
         Game game = new Game(homeTeam, awayTeam);
         gameRepository.add(game);
         return game;

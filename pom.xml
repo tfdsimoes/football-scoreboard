@@ -11,6 +11,7 @@
 
     <properties>
         <java.version>11</java.version>
+        <apache-commons.version>3.11</apache-commons.version>
         <junit-jupiter.version>5.7.1</junit-jupiter.version>
         <maven-sunfire-plugin.version>2.22.2</maven-sunfire-plugin.version>
         <maven.compiler.source>11</maven.compiler.source>
@@ -18,6 +19,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache-commons.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>

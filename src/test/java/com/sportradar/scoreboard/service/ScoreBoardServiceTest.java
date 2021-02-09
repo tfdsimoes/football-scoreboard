@@ -38,6 +38,11 @@ class ScoreBoardServiceTest {
      */
     @Test
     public void startGameErrorTeamNull(){
+        try {
+            scoreBoardService.start(null, "b");
+        } catch (RuntimeException exception) {
+            assertEquals("Home team can not be null or empty", exception.getMessage(), "Error message should be different");
+        }
 
     }
 
@@ -46,7 +51,11 @@ class ScoreBoardServiceTest {
      */
     @Test
     public void startGameErrorTeamEmpty() {
-
+        try {
+            scoreBoardService.start("a", "");
+        } catch (RuntimeException exception) {
+            assertEquals("Away team can not be null or empty", exception.getMessage(), "Error message should be different");
+        }
     }
 
     /**
