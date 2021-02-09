@@ -4,17 +4,12 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Game {
-    private String id;
-
     private final String homeTeam;
-
     private final String awayTeam;
-
-    private int homeTeamScore = 0;
-
-    private int awayTeamScore = 0;
-
     private final LocalDateTime startTime;
+    private String id;
+    private int homeTeamScore = 0;
+    private int awayTeamScore = 0;
 
     public Game(String homeTeam, String awayTeam) {
         id = UUID.randomUUID().toString();

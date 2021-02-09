@@ -1,10 +1,10 @@
 package com.sportradar.scoreboard.service;
 
 import com.sportradar.scoreboard.entity.Game;
+import com.sportradar.scoreboard.entity.GameComparator;
 import com.sportradar.scoreboard.repository.GameRepository;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,16 +17,15 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
      *
      * @param homeTeam Name of the home team
      * @param awayTeam Name of the away team
-     *
      * @return Game created in the system
      */
     @Override
     public Game start(String homeTeam, String awayTeam) {
-        if(StringUtils.isEmpty(homeTeam)) {
+        if (StringUtils.isEmpty(homeTeam)) {
             throw new RuntimeException("Home team can not be null or empty");
         }
 
-        if(StringUtils.isEmpty(awayTeam)) {
+        if (StringUtils.isEmpty(awayTeam)) {
             throw new RuntimeException("Away team can not be null or empty");
         }
 
@@ -51,7 +50,6 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
      * @param id            Id of the game to update
      * @param homeTeamScore Score of the home team
      * @param awayTeamScore Score of the away Team
-     *
      * @return Game update in the system
      */
     @Override
@@ -62,7 +60,7 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 
         Game game = gameRepository.get(id);
 
-        if(game == null) {
+        if (game == null) {
             throw new RuntimeException("Id game not found in the system");
         }
 
@@ -78,14 +76,10 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
      * @return List of games
      */
     @Override
-    public List<Game> get() {
-
-        Comparator<Game> comparator = Comparator.comparingInt(Game::getTotalGoals)
-                .thenComparing(Game::getStartTime);
-
+    public List<Game> getAllOrderByTotalGoalsAndStartTime() {
         return gameRepository.getAll()
                 .stream()
-                .sorted(comparator)
+                .sorted(new GameComparator())
                 .collect(Collectors.toList());
     }
 

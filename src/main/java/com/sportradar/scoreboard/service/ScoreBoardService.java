@@ -38,7 +38,7 @@ public interface ScoreBoardService {
      *
      * @return List of games
      */
-    List<Game> get();
+    List<Game> getAllOrderByTotalGoalsAndStartTime();
 
     /**
      * Clean all the scoreboard
